@@ -1,0 +1,162 @@
+Q2
+#include <stdio.h>
+int main() {
+    int rows, cols;
+    printf("Enter the number of rows and columns of the matrix: ");
+    scanf("%d %d", &rows, &cols);
+    int matrix[rows][cols];
+    int transpose[cols][rows];
+    printf("Enter the elements of the matrix:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            transpose[j][i] = matrix[i][j];
+        }
+    }
+    printf("Transpose of the matrix:\n");
+    for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < rows; j++) {
+            printf("%d ", transpose[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+
+Q3
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#define MAX_PARAGRAPH_LENGTH 1000
+#define MAX_WORDS 100
+#define MAX_WORD_LENGTH 50
+typedef struct {
+    char word[MAX_WORD_LENGTH];
+    int frequency;
+} WordFrequency;
+void toLowerCase(char *str) {
+    for(int i = 0; str[i]; i++){
+        str[i] = tolower(str[i]);
+    }
+}
+int main() {
+    char paragraph[MAX_PARAGRAPH_LENGTH];
+    WordFrequency words[MAX_WORDS];
+    int wordCount = 0;
+    for(int i = 0; i < MAX_WORDS; i++) {
+        words[i].frequency = 0;
+    }
+    printf("Enter a paragraph:\n");
+    fgets(paragraph, MAX_PARAGRAPH_LENGTH, stdin);
+    paragraph[strcspn(paragraph, "\n")] = '\0';
+    char *token = strtok(paragraph, " ,.-!?;:\"()\n");
+    while(token != NULL) {
+        toLowerCase(token);
+        int found = 0;
+        for(int i = 0; i < wordCount; i++) {
+            if(strcmp(words[i].word, token) == 0) {
+                words[i].frequency++;
+                found = 1;
+                break;
+            }
+        }
+        if(!found && wordCount < MAX_WORDS) {
+            strcpy(words[wordCount].word, token);
+            words[wordCount].frequency = 1;
+            wordCount++;
+        }
+        token = strtok(NULL, " ,.-!?;:\"()\n");
+    }
+    printf("\nWord Frequencies:\n");
+    for(int i = 0; i < wordCount; i++) {
+        printf("%s: %d\n", words[i].word, words[i].frequency);
+    }
+    return 0;
+}
+
+Q4
+
+Code Analysis and Function Documentation
+
+1. Swap Function
+Function Name: swap
+Purpose: Swaps the values of two integers.
+Parameters:
+int *a: Pointer to the first integer.
+int *b: Pointer to the second integer.
+Operation: Uses a temporary variable to swap the values pointed to by a and b.
+2. Reverse Array Function
+Function Name: rvereseArray
+Purpose: Reverses the elements of an array between specified indices.
+Parameters:
+int arr[]: The array to be reversed.
+int start: The starting index.
+int end: The ending index.
+Operation: Swaps elements from the start and end towards the middle.
+3. Partition Function
+Function Name: partition
+Purpose: Partitions the array around a pivot element for quicksort.
+Parameters:
+int array[]: The array to partition.
+int low: The starting index.
+int high: The ending index.
+Operation: Places elements smaller than the pivot to its left and larger to its right.
+4. Quicksort Function
+Function Name: quickSort
+Purpose: Sorts an array using the quicksort algorithm.
+Parameters:
+int array[]: The array to sort.
+int low: The starting index.
+int high: The ending index.
+Operation: Recursively partitions and sorts the array.
+5. First Fit Bin Packing Function
+Function Name: first_fit
+Purpose: Implements the first-fit algorithm for bin packing.
+Parameters:
+int weight[]: Array of item weights.
+int n: Number of items.
+Operation: Places each item in the first bin that has enough space.
+6. First Fit Decreasing Bin Packing Function
+Function Name: first_fit_decreasing
+Purpose: Implements the first-fit decreasing algorithm for bin packing.
+Parameters:
+int weight[]: Array of item weights.
+int n: Number of items.
+Operation: Sorts items in decreasing order and applies the first-fit algorithm.
+7. Random Number Generator
+Function Name: printRandoms_0
+Purpose: Generates a random number within a specified range.
+Parameters:
+int lower: Lower bound of the range.
+int upper: Upper bound of the range.
+int count: Number of random numbers to generate.
+Operation: Returns a random number within the range [lower, upper].
+8. Color Setting Functions
+Function Names: purple, green, yellow, cyan, red, white, reset
+Purpose: Sets the terminal text color.
+Operation: Uses ANSI escape codes to change text color.
+9. Dijkstra's Algorithm
+Function Name: dijkstra
+Purpose: Implements Dijkstra's algorithm to find the shortest path in a graph.
+Parameters:
+int graph[NOC][NOC]: Adjacency matrix of the graph.
+int n: Number of vertices.
+int startnode: Starting node for the path.
+int endnode: Destination node for the path.
+Operation: Calculates the shortest path and prints the distance and path.
+10. Main Function
+Function Name: main
+Purpose: The entry point of the program.
+Operations:
+Reads city names and graph distances from files.
+Generates random deliveries and their attributes.
+Calculates the shortest paths for deliveries using Dijkstra's algorithm.
+Determines the minimum number of bins (delivery services) required using bin packing algorithms.
+Prints the results.
+
